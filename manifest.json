@@ -1,0 +1,11 @@
+{
+    "id": "close-window-when-empty",
+    "name": "Close Window When Empty",
+    "version": "1.0.0",
+    "minAppVersion": "0.12.0",
+    "description": "Closes the Obsidian window when the last tab is closed.",
+    "author": "Taylor Jadin",
+    "authorUrl": "https://jadin.me",
+    "isDesktopOnly": true
+  }
+  
