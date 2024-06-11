@@ -4,6 +4,10 @@ export default class CloseWindowWhenEmptyPlugin extends Plugin {
     private initialLoad: boolean = true;
 
     onload() {
+        if (process.platform !== 'darwin') {
+            // Only enable the plugin on macOS
+            return;
+        }
         this.registerEvent(this.app.workspace.on('layout-change', this.handleLayoutChange));
     }
 
