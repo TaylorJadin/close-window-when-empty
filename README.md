@@ -1,6 +1,6 @@
 # Close Window When Empty
 
-This plugin closes the Obsidian window when the last tab is closed, kind of how browsers work. This is intended for use on macOS, where this type of behavior is common for apps that have tabs.
+This plugin closes the Obsidian window (but doesn't quit the entire Application) when the last tab is closed, kind of how browsers work. This is intended for use on macOS, where this type of behavior is common for apps that have tabs.
 
 ## Installation
 Clone this git repository into your vault's plugins folder:
