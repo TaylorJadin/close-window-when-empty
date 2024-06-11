@@ -21,7 +21,7 @@ class CloseWindowWhenEmptyPlugin extends obsidian_1.Plugin {
     onload() {
         if (process.platform !== 'darwin') {
             // Only enable the plugin on macOS
-            return;
+           // return;
         }
         this.registerEvent(this.app.workspace.on('layout-change', this.handleLayoutChange));
     }
