@@ -8,7 +8,9 @@ export default class CloseWindowWhenEmptyPlugin extends Plugin {
     }
 
     handleLayoutChange = () => {
-        const leaves = this.app.workspace.getLeavesOfType('markdown');
+        const markdownLeaves = this.app.workspace.getLeavesOfType('markdown');
+        const graphLeaves = this.app.workspace.getLeavesOfType('graph');
+        const leaves = [...markdownLeaves, ...graphLeaves];
 
         // Avoid closing the window on the initial load
         if (this.initialLoad) {
