@@ -1,11 +1,10 @@
 {
-    "id": "close-window-when-empty",
-    "name": "Close Window When Empty",
-    "version": "1.0.0",
-    "minAppVersion": "0.12.0",
-    "description": "Close the window when the last note is closed, kind of how browsers work.",
-    "author": "Taylor Jadin",
-    "authorUrl": "https://jadin.me",
-    "isDesktopOnly": true
-  }
-  
+  "id": "close-window-when-empty",
+  "name": "Close Window When Empty",
+  "version": "1.0.1",
+  "minAppVersion": "0.12.0",
+  "description": "Close the window when the last note is closed, kind of how browsers work.",
+  "author": "Taylor Jadin",
+  "authorUrl": "https://jadin.me",
+  "isDesktopOnly": true
+}
