@@ -7,6 +7,11 @@ Toggle the plugin on in the Community Plugins section of the Obsidian settings.
 
 ## Dev
 
+Install dependencies
+```bash
+npm install
+```
+
 Compile the typescript
 ```bash
 npx tsc
