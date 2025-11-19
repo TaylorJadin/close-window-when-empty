@@ -12,7 +12,12 @@ Install dependencies
 npm install
 ```
 
-Compile the typescript
+Build for testing with logging enabled
 ```bash
-npx tsc
+npm run dev
+```
+
+Build for release
+```bash
+npm run build
 ```
