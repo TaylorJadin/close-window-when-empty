@@ -1,9 +1,18 @@
 import { Plugin, WorkspaceLeaf } from 'obsidian';
 
+// Dev mode flag - set to false for production builds
+const __DEV__ = false;
+
+// Dev logging helper - will be stripped in production
+function devLog(...args: any[]) {
+    if (__DEV__) {
+        console.log(...args);
+    }
+}
+
 export default class CloseWindowWhenEmptyPlugin extends Plugin {
     private initialLoad: boolean = true;
     private previousNumOpenTabs: number | null = null;
-    private previousEmptyLeavesCount: number | null = null;
 
     onload() {
         this.registerEvent(this.app.workspace.on('layout-change', this.handleLayoutChange));
@@ -11,15 +20,11 @@ export default class CloseWindowWhenEmptyPlugin extends Plugin {
 
     handleLayoutChange = () => {
         let numOpenTabs = 0;
-        let numNonEmptyTabs = 0;
     
-        // Count the number of open tabs and non-empty tabs
+        // Count the number of open tabs
         this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
             if (leaf.getRoot() === this.app.workspace.rootSplit) {
                 numOpenTabs++;
-                if (leaf.view.getViewType() !== 'empty') {
-                    numNonEmptyTabs++;
-                }
             }
         });
 
@@ -31,10 +36,8 @@ export default class CloseWindowWhenEmptyPlugin extends Plugin {
         if (this.initialLoad) {
             this.initialLoad = false;
             this.previousNumOpenTabs = numOpenTabs;
-            this.previousEmptyLeavesCount = currentEmptyLeavesCount;
-            console.log('[CloseWindowWhenEmpty] Initial load:', {
+            devLog('[CloseWindowWhenEmpty] Initial load:', {
                 numOpenTabs,
-                numNonEmptyTabs,
                 currentEmptyLeavesCount
             });
             return;
@@ -45,32 +48,24 @@ export default class CloseWindowWhenEmptyPlugin extends Plugin {
         const shouldClose = this.previousNumOpenTabs === 1 && 
             numOpenTabs === 1 && 
             currentEmptyLeavesCount === 1;
-        
-        console.log('[CloseWindowWhenEmpty] Layout change:', {
+
+        devLog('[CloseWindowWhenEmpty] Layout change:', {
             previousNumOpenTabs: this.previousNumOpenTabs,
-            previousEmptyLeavesCount: this.previousEmptyLeavesCount,
             numOpenTabs,
-            numNonEmptyTabs,
             currentEmptyLeavesCount,
-            shouldClose,
-            closeCondition: {
-                'previousNumOpenTabs === 1': this.previousNumOpenTabs === 1,
-                'numOpenTabs === 1': numOpenTabs === 1,
-                'currentEmptyLeavesCount === 1': currentEmptyLeavesCount === 1
-            }
+            shouldClose
         });
 
         // Only close when one layout change with numOpenTabs: 1 is followed by 
         // a layout change with numOpenTabs: 1 and currentEmptyLeavesCount: 1
         if (shouldClose) {
-            console.log('[CloseWindowWhenEmpty] Closing window...');
+            devLog('[CloseWindowWhenEmpty] Closing window...');
             // Close the Obsidian window
             window.close();
         }
 
         // Update previous state for next layout change
         this.previousNumOpenTabs = numOpenTabs;
-        this.previousEmptyLeavesCount = currentEmptyLeavesCount;
     }
 
     onunload() {
